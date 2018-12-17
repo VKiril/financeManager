@@ -1,0 +1,6 @@
+namespace FinanceManager.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}
