@@ -1,0 +1,80 @@
+﻿<form action="/Products/Create" enctype="multipart/form-data" id="product-create" method="post">
+    <input name="__RequestVerificationToken" type="hidden" value="He6eP5lyNogrqqmeyte8BzZ8zztdYc7FmINawvoeQ_S21jCB28YeKW-N1NqLm91qg8QyKd2YK7rOFd_UiDSQ2UPKXtilRBgdY_W8OSl0RuE1">    <div class="form-horizontal">
+        <h4>Product</h4>
+        <hr>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Name">Name</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="Name" name="Name" type="text" value="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Quantity">Quantity</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="Quantity" name="Quantity" type="text" value="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ProductType">Product type</label>
+            <div class="col-md-10">
+                <select class="form-control" id="ProductType" name="ProductType">
+                    <option selected="selected" value="0">Service</option>
+                    <option value="1">Countable</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Cost">Cost</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="Cost" name="Cost" type="text" value="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="CostPerUnit">Cost per unit</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="CostPerUnit" name="CostPerUnit" type="text" value="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ForWho">For Who</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="ForWho" name="ForWho" type="text" value="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="IsMinimalNecesarry">Minimal necessary</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    <input class="check-box" id="IsMinimalNecesarry" name="IsMinimalNecesarry" type="checkbox" value="true"><input name="IsMinimalNecesarry" type="hidden" value="false">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="product-image-tag">Image</label>
+            <div class="col-md-10">
+                <input type="file" name="Image" id="image-tag">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="product-create-btn" value="Create" class="btn btn-default">
+            </div>
+        </div>
+    </div>
+</form>

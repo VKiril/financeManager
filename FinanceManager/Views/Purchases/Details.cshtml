@@ -1,0 +1,145 @@
+﻿@model FinanceManager.Models.Purchase
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Purchase</h4>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-5">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Place)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Place)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Amount)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NumberOfProducts)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NumberOfProducts)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UOM)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UOM)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedAt)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedAt)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-md-7">
+            @if (@Model.FileName != null)
+            {
+                <img style="width: 100px; height: 100px; margin: -5px 0px -5px 50px;" src="~/Uploads/@Model.FileName" alt="" />
+            }
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <button id="add-purchase-btn" data-id="@Model.ID" type="button" class="btn btn-primary " data-toggle="modal" data-target="#product-modal">
+                Add purchase product.
+            </button>
+        </div>
+        <div>
+            <div id="no-products">No Products</div>
+            <table class="table table-bordered" id="purchase-product-list">
+                <tr>
+                    <th> Name </th>
+                    <th> Quantity </th>
+                    <th> ProductType </th>
+                    <th> Cost </th>
+                    <th> CostPerUnit </th>
+                    <th> ForWho </th>
+                    <th> IsMinimalNecesarry </th>
+                    <th> FileName </th>
+                </tr>
+
+                @foreach (var item in @Model.Products)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CostPerUnit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ForWho)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsMinimalNecesarry)
+                        </td>
+                        <td>
+                            @if (item.FileName != null)
+                            {
+                                <img style="width: 40px; height: 40px; margin: -5px 0px -5px 50px;" src="~/Uploads/@item.FileName" alt="" />
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Products", new { id = item.ID }, new { }) |
+                            @Html.ActionLink("Details", "Details", "Products", new { id = item.ID }, new { }) |
+                            @Html.ActionLink("Delete", "Delete", "Products", new { id = item.ID }, new { })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<!-- Modal -->
+<div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="product-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @RenderPage("../Products/FormHtml.cshtml")
+            </div>
+        </div>
+    </div>
+</div>

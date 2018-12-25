@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -23,11 +25,36 @@ namespace FinanceManager.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            //this.Configuration.ProxyCreationEnabled = false;
+
+            Database.SetInitializer<ApplicationDbContext>(null);
+            Configuration.ProxyCreationEnabled = true;
+            Configuration.LazyLoadingEnabled = true;
         }
         
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        public System.Data.Entity.DbSet<FinanceManager.Models.Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<FinanceManager.Models.Purchase> Purchases { get; set; }
+
+        public System.Data.Entity.DbSet<FinanceManager.Models.PurchaseEventCategory> PurchaseEventCategories { get; set; }
+
+        public System.Data.Entity.DbSet<FinanceManager.Models.PurchaseCategory> PurchaseCategories { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            //base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Purchase>()
+            //    .HasOptional(w => w.Products)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
         }
     }
 }

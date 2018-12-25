@@ -1,0 +1,62 @@
+﻿@model FinanceManager.Models.Purchase
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@RenderPage("Form.cshtml")
+
+<button id="add-purchase-btn" type="button" class="btn btn-primary " data-toggle="modal" data-target="#product-modal">
+    Add purchase product.
+</button>
+
+<div>
+    <div id="no-products">No Products</div>
+    <table class="table table-bordered hide" id="purchase-product-list">
+        <tr>
+            <th> Name </th>
+            <th> Quantity </th>
+            <th> ProductType </th>
+            <th> Cost </th>
+            <th> CostPerUnit </th>
+            <th> ForWho </th>
+            <th> IsMinimalNecesarry </th>
+            <th> FileName </th>
+        </tr>
+    </table>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="product-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @RenderPage("../Products/Form.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div id="product-content-edit-form">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
