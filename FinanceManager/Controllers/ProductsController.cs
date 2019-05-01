@@ -48,7 +48,7 @@ namespace FinanceManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Quantity,ProductType,Cost,CostPerUnit,ForWho,IsMinimalNecesarry")] Product product)
+        public ActionResult Create([Bind(Include = "ID,Name,Quantity,ProductType,Cost,CostPerUnit,ForWho,IsMinimalNecesarry,PurchaseIdReceiver")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -70,12 +70,17 @@ namespace FinanceManager.Controllers
                     product.FileOriginalName = filename;
                 }
 
+                var purchase = db.Purchases.Find(product.PurchaseIdReceiver);
+                //roduct.Purchase = purchase.CastToSelf();
+                product.Purchase = purchase;
+
                 db.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return PartialView("ApiProductIndex", product);
+                //return RedirectToAction("Index");
             }
 
-            return View(product);
+            return View("ApiProductIndex", product);
         }
 
         // GET: Products/Edit/5
@@ -130,9 +135,11 @@ namespace FinanceManager.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
+            var purchaseId = product.Purchase.ID;
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Details", new { controller = "Purchases", id = purchaseId });
         }
 
         protected override void Dispose(bool disposing)

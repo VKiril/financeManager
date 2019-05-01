@@ -1,0 +1,36 @@
+﻿@model FinanceManager.Models.Product
+
+<tr>
+    <td>
+        @Html.DisplayFor(model => model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.ProductType)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Cost)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.CostPerUnit)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.ForWho)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.IsMinimalNecesarry)
+    </td>
+    <td>
+        @if (@Model.FileName != null)
+        {
+            <img style="width: 40px; height: 40px; margin: -5px 0px -5px 50px;" src="~/Uploads/@Model.FileName" alt="" />
+        }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = @Model.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = @Model.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = @Model.ID })
+        </td>
+    </tr>

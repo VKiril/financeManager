@@ -16,5 +16,5 @@ http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-
 http://bitoftech.net/2014/08/11/asp-net-web-api-2-external-logins-social-logins-facebook-google-angularjs-app/
 http://bitoftech.net/2014/09/24/decouple-owin-authorization-server-resource-server-oauth-2-0-web-api/
 
-
+https://github.com/aspnet/Docs
 

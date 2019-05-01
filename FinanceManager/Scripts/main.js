@@ -86,7 +86,151 @@
         });
     });
 
-    $("#product-create-btn").on("click", function (e) {
+
+    $("form#product-create").submit(function (evt) {
+        evt.preventDefault();
+
+        $("#PurchaseIdReceiver").val($("#add-purchase-btn").data("id"));
+
+        var formData = new FormData($(this)[0]);
+
+
+        //$.ajax({
+        //    url: 'fileUpload',
+        //    type: 'POST',
+        //    data: formData,
+        //    async: false,
+        //    cache: false,
+        //    contentType: false,
+        //    enctype: 'multipart/form-data',
+        //    processData: false,
+        //    success: function (response) {
+        //        alert(response);
+        //    }
+        //});
+
+        $.ajax({
+            type: 'post',
+            url: "/Products/Create",
+            processData: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            data: formData,
+            success: function (response) {
+                //$("#add-purchase-btn").removeClass("disabled");
+                $("#no-products").html("");
+                console.log(response);
+                var img = "";
+                if (response.FileName !== null) {
+                    img = '<img style="width: 40px; height: 40px; margin: -5px 0px -5px 50px;" src="~/Uploads/' + response.FileName + '" alt="" />';
+                }
+
+                var html = '<tr> ' +
+                    '<td>' + response.Name + '</td>' +
+                    '<td>' + response.Quantity + '</td>' +
+                    '<td>' + response.ProductType + '</td>' +
+                    '<td>' + response.Cost + '</td>' +
+                    '<td>' + response.CostPerUnit + '</td>' +
+                    '<td>' + response.ForWho + '</td>' +
+                    '<td>' + response.IsMinimalNecesarry + '</td>' +
+                    '<td>' + img + '</td>' +
+                    '<td> ' +
+                    '   <a href="/Products/Edit/' + response.ID + '">Edit</a> | ' +
+                    '   <a href="/Products/Details/' + response.ID + '">Details</a> | ' +
+                    '   <a href="/Products/Delete/' + response.ID + '">Delete</a> ' +
+                    '</td> ' +
+                    '</tr >';
+
+                $("#product-modal").modal("hide");
+                $("#purchase-product-list").removeClass("hide");
+                $("#purchase-product-list").append(response);
+
+                $("#Name").val("");
+                $("#Quantity").val("");
+                $("#ProductType").val("");
+                $("#Cost").val("");
+                $("#CostPerUnit").val("");
+                $("#ForWho").val("");
+                $("#IsMinimalNecesarry").val("");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+        return false;
+    });
+
+
+    $("#product-create-btntt").on("click", function (e) {
+        e.preventDefault();
+
+        let files = new FormData();
+        files.append("File", $("#product-image-tag")[0].files[0]); 
+
+        files.append("Name", $("#Name").val()); 
+        files.append("Quantity", $("#Quantity").val()); 
+        files.append("ProductType", $("#ProductType").val()); 
+        files.append("Cost", $("#Cost").val()); 
+        files.append("CostPeFilerUnit", $("#CostPerUnit").val()); 
+        files.append("PurchaseIdReceiver", $("#add-purchase-btn").data("id")); 
+        files.append("ForWho", $("#ForWho").val()); 
+        files.append("IsMinimalNecesarry", $("#IsMinimalNecesarry").val()); 
+
+        $.ajax({
+            type: 'post',
+            url: PRODUCT_CREATE,
+            processData: false,
+            contentType: false,
+            data: files,
+            success: function (response) {
+                //$("#add-purchase-btn").removeClass("disabled");
+                $("#no-products").html("");
+                console.log(response);
+                var img = "";
+                if (response.FileName !== null) {
+                    img = '<img style="width: 40px; height: 40px; margin: -5px 0px -5px 50px;" src="~/Uploads/' + response.FileName + '" alt="" />';
+                }
+
+                var html = '<tr> ' +
+                    '<td>' + response.Name + '</td>' +
+                    '<td>' + response.Quantity + '</td>' +
+                    '<td>' + response.ProductType + '</td>' +
+                    '<td>' + response.Cost + '</td>' +
+                    '<td>' + response.CostPerUnit + '</td>' +
+                    '<td>' + response.ForWho + '</td>' +
+                    '<td>' + response.IsMinimalNecesarry + '</td>' +
+                    '<td>' + img + '</td>' +
+                    '<td> ' +
+                    '   <a href="/Products/Edit/' + response.ID + '">Edit</a> | ' +
+                    '   <a href="/Products/Details/' + response.ID + '">Details</a> | ' +
+                    '   <a href="/Products/Delete/' + response.ID + '">Delete</a> ' +
+                    '</td> ' +
+                    '</tr >';
+
+                $("#product-modal").modal("hide");
+                $("#purchase-product-list").removeClass("hide");
+                $("#purchase-product-list").append(html);
+
+                $("#Name").val("");
+                $("#Quantity").val("");
+                $("#ProductType").val("");
+                $("#Cost").val("");
+                $("#CostPerUnit").val("");
+                $("#ForWho").val("");
+                $("#IsMinimalNecesarry").val("");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+
+
+
+
+
+    $("#product-create-btnnn").on("click", function (e) {
         e.preventDefault();
 
         var formData = {
@@ -94,7 +238,7 @@
             Quantity: $("#Quantity").val(),
             ProductType: $("#ProductType").val(),
             Cost: $("#Cost").val(),
-            CostPerUnit: $("#CostPerUnit").val(),
+            CostPeFilerUnit: $("#CostPerUnit").val(),
             //File: $("#product-image-tag").get(0).files,
             PurchaseIdReceiver: $("#add-purchase-btn").data("id"),
             ForWho: $("#ForWho").val(),
@@ -127,7 +271,6 @@
             success: function (e) {
                 //$("#add-purchase-btn").removeClass("disabled");
                 $("#no-products").html("");
-                console.log(e);
                 var img = "";
                 if (e.FileName !== null) {
                     img = '<img style="width: 40px; height: 40px; margin: -5px 0px -5px 50px;" src="~/Uploads/' + e.FileName + '" alt="" />';
@@ -151,7 +294,7 @@
 
                 $("#product-modal").modal("hide");
                 $("#purchase-product-list").removeClass("hide");
-                $("#purchase-product-list").append(html);
+                $("#purchase-product-list tbody").append(html);
 
                 $("#Name").val("");
                 $("#Quantity").val("");
