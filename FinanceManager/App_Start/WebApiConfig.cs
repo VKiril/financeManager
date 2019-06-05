@@ -28,7 +28,6 @@ namespace FinanceManager
 
             // used only for services that are supposed to use only json format.
             config.Formatters.Remove(config.Formatters.XmlFormatter);
-            
 
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

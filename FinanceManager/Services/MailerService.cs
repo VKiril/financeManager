@@ -26,7 +26,7 @@ namespace FinanceManager.Services
             mailMessage.Body = message;
 
             object tmp = new object();
-            smtpClient.Send(mailMessage);
+            //smtpClient.Send(mailMessage);
             tmp = new { message = "message sent", code = 200 };
 
             return tmp;

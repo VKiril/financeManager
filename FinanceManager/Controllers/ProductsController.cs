@@ -17,6 +17,7 @@ namespace FinanceManager.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Products
+        //[ActionName("products")]
         public ActionResult Index()
         {
             return View(db.Products.ToList());
